@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -9,6 +10,14 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signUp']);
+
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::get('logout', [AuthController::class, 'logout']);
+});
 
 Route::group(['prefix' => 'product'], function(){
     Route::get('show', [ProductController::class, 'showProduct']);
