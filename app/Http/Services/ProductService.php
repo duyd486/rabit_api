@@ -28,22 +28,22 @@ class ProductService{
         }
 
         switch ($params['sort_type'] ?? 'default') {
-                case 'newest':
-                    $products->orderBy('created_at', 'desc');
-                    break;
-                case 'best_seller':
-                    $products->orderBy('total_sold', 'desc');
-                    break;
-                case 'price_asc':
-                    $products->orderBy('price', 'asc');
-                    break;
-                case 'price_desc':
-                    $products->orderBy('price', 'desc');
-                    break;
-                default:
-                    $products->orderBy('id', 'asc');
-                    break;
-            }
+            case 'newest':
+                $products->orderBy('created_at', 'desc');
+                break;
+            case 'best_seller':
+                $products->orderBy('total_sold', 'desc');
+                break;
+            case 'price_asc':
+                $products->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $products->orderBy('price', 'desc');
+                break;
+            default:
+                $products->orderBy('id', 'asc');
+                break;
+        }
 
         // $products = $products->with('images:product_id,image_url')->with('category:id,name,thumbnail_url')->offset($params['offset'] ?? 0)->limit(16)->get();
         $products = $products->with('images:product_id,image_url')->offset($params['offset'] ?? 0)->limit(16)->get();
