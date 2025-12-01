@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -23,6 +24,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::get('list-product', [CartController::class, 'listProduct']);
         Route::get('update-product', [CartController::class, 'updateProduct']);
         Route::get('clear-cart', [CartController::class, 'clearCart']);
+    });
+
+    Route::group(['prefix' => 'address'], function(){
+        Route::get('list-address', [AddressController::class, 'index']);
     });
 
 
