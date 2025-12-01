@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->nullable();
             $table->string('language')->nullable();
             $table->string('color')->nullable();
             $table->timestamps();

@@ -11,4 +11,9 @@ class Setting extends Model
         'language',
         'color',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

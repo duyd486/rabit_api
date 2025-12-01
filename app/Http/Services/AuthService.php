@@ -17,30 +17,36 @@ class AuthService{
         }
 
         $user = Auth::user();
-        
+
         $token = $user->createToken($user->email)->plainTextToken;
 
         $user->token = $token;
+
+        $user->load('setting:user_id,language,color');
 
         return $user;
     }
 
     public function signUp($data)
     {
-        $setting = Setting::create([
-            'language' => 'VI',
-            'color' => '#FFFFFF',
-        ]);
         $user = User::create([
             'name' => explode('@', $data['email'])[0],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'setting_id' => $setting->id,
+            'birth' => null,
+            'avatar_url' => env('APP_URL') . '/avatars/defaultAvt.jpg',
         ]);
 
         $token = $user->createToken($user->email)->plainTextToken;
 
         $user->token = $token;
+
+        $user->setting()->create([
+            'language' => 'VI',
+            'color' => '#FFFFFF',
+        ]);
+
+        $user->load('setting:user_id,language,color');
 
         return $user;
     }

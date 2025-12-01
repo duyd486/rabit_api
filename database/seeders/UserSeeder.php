@@ -17,33 +17,33 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name'=>'duy',
-                'setting_id'=>'1',
                 'email'=>'duy@gmail.com',
                 'password'=>Hash::make('11111111'),
+                'avatar_url' => env('APP_URL') . '/avatars/defaultAvt.jpg',
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
             [
                 'name'=>'trang',
-                'setting_id'=>'2',
                 'email'=>'trang@gmail.com',
                 'password'=>Hash::make('11111111'),
+                'avatar_url' => env('APP_URL') . '/avatars/defaultAvt.jpg',
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
             [
                 'name'=>'hieu',
-                'setting_id'=>'1',
                 'email'=>'hieu@gmail.com',
                 'password'=>Hash::make('11111111'),
+                'avatar_url' => env('APP_URL') . '/avatars/defaultAvt.jpg',
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
             [
                 'name'=>'ngoc',
-                'setting_id'=>'1',
                 'email'=>'ngoc@gmail.com',
                 'password'=>Hash::make('11111111'),
+                'avatar_url' => env('APP_URL') . '/avatars/defaultAvt.jpg',
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
