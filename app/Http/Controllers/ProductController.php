@@ -31,10 +31,10 @@ class ProductController extends Controller
         }
     }
 
-    public function showProduct(Request $request, ProductService $productService){
+    public function showProduct(Request $request, ProductService $productService, Product $product){
         $params = $request->all();
         try{
-            $product = $productService->getProduct($params['id']);
+            $product = $productService->getProduct($product);
             return ApiResponse::success($product);
         }catch (\Throwable $th){
             return ApiResponse::internalServerError($th);

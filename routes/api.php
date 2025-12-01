@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -28,13 +29,16 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::group(['prefix' => 'address'], function(){
         Route::get('list-address', [AddressController::class, 'index']);
+        Route::get('add-address', [AddressController::class, 'store']);
+        Route::get('update-address/{address}', [AddressController::class, 'update']);
+        Route::get('delete-address/{address}', [AddressController::class, 'destroy']);
     });
 
-
+    Route::get('create-bill', [BillController::class, 'createBill']);
 });
 
 Route::group(['prefix' => 'product'], function(){
-    Route::get('show', [ProductController::class, 'showProduct']);
+    Route::get('show/{product}', [ProductController::class, 'showProduct']);
     Route::get('similar-products', [ProductController::class, 'listSimilarProducts']);
 });
 
