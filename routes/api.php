@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 Route::group(['prefix' => 'product'], function(){
     Route::get('show/{product}', [ProductController::class, 'showProduct']);
-    Route::get('similar-products', [ProductController::class, 'listSimilarProducts']);
+    Route::get('similar-products/{product}', [ProductController::class, 'listSimilarProducts']);
 });
 
 

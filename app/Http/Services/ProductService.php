@@ -56,11 +56,10 @@ class ProductService{
         return $categories;
     }
 
-    public function getSimilarProducts($id){
-        $product = Product::select('id', 'category_id')->where('id', $id)->first();
+    public function getSimilarProducts($product){
         $products = Product::select('id', 'name', 'price', 'category_id')
                             ->where('category_id', $product->category_id)
-                            ->where('id', '<>', $id)
+                            ->where('id', '<>', $product->id)
                             ->with('images:product_id,image_url')
                             ->orderByDesc('total_sold')
                             ->limit(6)

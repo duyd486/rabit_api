@@ -21,10 +21,10 @@ class ProductController extends Controller
         }
     }
 
-    public function listSimilarProducts(Request $request, ProductService $productService) {
+    public function listSimilarProducts(Request $request, ProductService $productService, Product $product) {
         $params = $request->all();
         try{
-            $products = $productService->getSimilarProducts($params['id']);
+            $products = $productService->getSimilarProducts($product);
             return ApiResponse::success($products);
         }catch (\Throwable $th){
             return ApiResponse::internalServerError($th);

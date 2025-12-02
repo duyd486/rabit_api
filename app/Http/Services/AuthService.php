@@ -51,6 +51,25 @@ class AuthService{
         return $user;
     }
 
+    public function rePassword($oldPassword, $newPassword){
+        try{
+            $user = Auth::user();
+            $data = [
+                'email' => $user->email,
+                'password' => $oldPassword
+            ];
+            if (!Auth::attempt($data)) {
+                return false;
+            }
+            $user->update([
+                'password' => Hash::make($newPassword)
+            ]);
+            return true;
+        }catch(\Throwable $th){
+            return false;
+        }
+    }
+
     public function logout($user){
         try {
 

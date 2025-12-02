@@ -41,6 +41,18 @@ class AuthController extends Controller
         }
     }
 
+    public function rePassword(Request $request, AuthService $authService){
+        $params = $request->all();
+        try {
+            if(!$authService->rePassword($params['old_password'], $params['new_password'])){
+                return ApiResponse::internalServerError();
+            }
+            return ApiResponse::success();
+        } catch (\Throwable $th) {
+            return ApiResponse::internalServerError($th->getMessage());
+        }
+    }
+
     public function logout(Request $request, AuthService $authService){
         $user = $request->user();
 
