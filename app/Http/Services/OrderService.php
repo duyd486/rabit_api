@@ -3,6 +3,9 @@
 namespace App\Http\Services;
 
 use App\Models\Address;
+use App\Models\Bill;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class OrderService{
@@ -39,6 +42,31 @@ class OrderService{
     public function deleteAddress(Address $address){
         try{
             $address->delete();
+            return true;
+        }catch(\Throwable $th){
+            return false;
+        }
+    }
+
+
+    public function createBill($addressId, $items){
+        try{
+            $totalBillPrice = 0;
+            foreach($items as $item){
+                $totalPrice = Product::find($item['id'])->price * $item['quantity'];
+                OrderItem::insert([
+                    'product_id' => $item['id'],
+                    'quantity' => $item['quantity'],
+                    'total_price' => $totalPrice,
+                ]);
+                $totalBillPrice += $totalPrice;
+            }
+            $bill = Bill::create([
+                'address_id' => $addressId,
+                'total_price' => $totalBillPrice,
+                'status' => 1,
+                'user_id' => Auth::id(),
+            ]);
             return true;
         }catch(\Throwable $th){
             return false;
