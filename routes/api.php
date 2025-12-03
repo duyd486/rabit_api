@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::get('delete-address/{address}', [AddressController::class, 'destroy']);
     });
 
-    Route::get('create-bill', [BillController::class, 'createBill']);
+    Route::post('create-bill', [BillController::class, 'createBill']);
 });
 
 Route::group(['prefix' => 'product'], function(){
