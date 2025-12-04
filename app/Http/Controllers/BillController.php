@@ -16,11 +16,22 @@ class BillController extends Controller
     public function createBill (Request $request, OrderService $orderService) {
         $params = $request->all();
         try{
-            $res = $orderService->createBill($params['address_id'], $params['items'], $params['payment_method']);
+            // $items = [
+            //     [
+            //         "id"=>1,
+            //         "quantity"=>3
+            //     ],
+            //     [
+            //         "id"=>2,
+            //         "quantity"=>4
+            //     ]
+            // ];
+            // $res = $orderService->createBill(1, $items, "online");
+            $res = $orderService->createBill($params['address_id'], $params['items'], $params['method']);
             if($res != null){
                 return ApiResponse::success($res);
             } else{
-                return ApiResponse::internalServerError();
+                return ApiResponse::internalServerError("Tra ve null");
             }
         }catch(\Throwable $th){
             return ApiResponse::internalServerError($th);

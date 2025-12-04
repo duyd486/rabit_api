@@ -7,6 +7,8 @@ use App\Models\Bill;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use PayOS\PayOS;
 
 class OrderService{
@@ -67,6 +69,13 @@ class OrderService{
             $totalBillPrice = 0;
 
             $products = [];
+            
+            $bill = Bill::create([
+                'address_id' => $addressId,
+                'total_price' => $totalBillPrice,
+                'order_code' => intval(substr(strval(microtime(true) * 10000), -6)),
+                'user_id' => Auth::id(),
+            ]);
 
             foreach($items as $item){
                 $product = Product::find($item['id']);
@@ -77,22 +86,21 @@ class OrderService{
                     'product_id' => $item['id'],
                     'quantity' => $item['quantity'],
                     'total_price' => $totalPrice,
+                    'bill_id' => $bill->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
 
                 array_push($products, [
                     'name' => $product->name,
                     'quantity' => $item['quantity'],
-                    'price' => (double) $item['price'],
+                    'price' => $totalPrice,
                 ]);
 
                 $totalBillPrice += $totalPrice;
             }
 
-            $bill = Bill::create([
-                'address_id' => $addressId,
-                'total_price' => $totalBillPrice,
-                'user_id' => Auth::id(),
-            ]);
+            $bill->total_price = $totalBillPrice;
 
             if($method === 'online'){
                 $bill->status = 1;
@@ -110,21 +118,25 @@ class OrderService{
     }
 
     public function createPaymentLink($bill, $items){
-        $res = null;
-
-        $data = [
-            'orderCode' => $bill->order_code,
-            'amount' => $bill->total_price,
-            'description' => "Thanh toán hóa đơn {$bill->order_code}",
-            'items' => $items,
-            'returnUrl' => 'http://google.com',
-            'cancelUrl' => 'http://chatgpt.com',
-            'expiredAt' => now()->addMinutes(10)->timestamp,
-        ];
-
-        $res = $this->payOS->createPaymentLink($data);
-
-        return $res;
+        try{
+            $res = null;
+    
+            $data = [
+                'orderCode' => $bill->order_code,
+                'amount' => $bill->total_price,
+                'description' => "Thanh toán hóa đơn {$bill->order_code}",
+                'items' => $items,
+                'returnUrl' => 'http://google.com',
+                'cancelUrl' => 'http://chatgpt.com',
+                'expiredAt' => now()->addMinutes(10)->timestamp,
+            ];
+    
+            $res = $this->payOS->createPaymentLink($data);
+    
+            return $res;
+        }catch(\Throwable $th){
+            return $th->getMessage();
+        }
     }
 
 }
