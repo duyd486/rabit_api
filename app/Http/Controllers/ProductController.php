@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function listSimilarProducts(Request $request, ProductService $productService, Product $product) {
         $params = $request->all();
         try{
-            $products = $productService->getSimilarProducts($product);
+            $products = $productService->getSimilarProducts($product, $params['limit']);
             return ApiResponse::success($products);
         }catch (\Throwable $th){
             return ApiResponse::internalServerError($th);

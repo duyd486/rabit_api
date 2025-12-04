@@ -46,7 +46,7 @@ class ProductService{
         }
 
         // $products = $products->with('images:product_id,image_url')->with('category:id,name,thumbnail_url')->offset($params['offset'] ?? 0)->limit(16)->get();
-        $products = $products->with('images:product_id,image_url')->offset($params['offset'] ?? 0)->limit(16)->get();
+        $products = $products->with('images:product_id,image_url')->offset($params['offset'] ?? 0)->limit($params['limit'] ?? 16)->get();
 
         return $products;
     }
@@ -56,13 +56,13 @@ class ProductService{
         return $categories;
     }
 
-    public function getSimilarProducts($product){
+    public function getSimilarProducts($product, $limit){
         $products = Product::select('id', 'name', 'price', 'category_id')
                             ->where('category_id', $product->category_id)
                             ->where('id', '<>', $product->id)
                             ->with('images:product_id,image_url')
                             ->orderByDesc('total_sold')
-                            ->limit(6)
+                            ->limit($limit)
                             ->get();
         return $products;
     }

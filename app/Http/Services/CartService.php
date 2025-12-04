@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class CartService{
-    public function getProducts(){
+    public function getProducts($limit){
         $user = Auth::user();
 
-        $cartItems = $user->carts()->with(['product:id,name,price,category_id', 'product.images:product_id,image_url'])->get();
+        $cartItems = $user->carts()->with(['product:id,name,price,category_id', 'product.images:product_id,image_url'])->limit($limit ?? 6)->get();
 
         $products = $cartItems->map(fn($item) => [
             'product' => $item->product,

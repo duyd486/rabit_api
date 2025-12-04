@@ -22,8 +22,8 @@ class OrderService{
         );
     }
 
-    public function listAddress(){
-        $addresses = Address::select('addresses', 'phone')->where('user_id', Auth::user()->id)->get();
+    public function listAddress($limit){
+        $addresses = Address::select('addresses', 'phone')->where('user_id', Auth::user()->id)->limit($limit ?? 6)->get();
         return $addresses;
     }
 

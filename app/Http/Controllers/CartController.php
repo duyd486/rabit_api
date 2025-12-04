@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function listProduct(Request $request, CartService $cartService){
+        $params = $request->all();
         try{
-            $products = $cartService->getProducts();
+            $products = $cartService->getProducts($params['limit']);
             return ApiResponse::success($products);
         }catch (\Throwable $th){
             return ApiResponse::internalServerError($th);

@@ -12,10 +12,11 @@ class AddressController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(OrderService $orderService)
+    public function index(Request $request, OrderService $orderService)
     {
+        $params = $request->all();
         try{
-            $addresses = $orderService->listAddress();
+            $addresses = $orderService->listAddress($params['limit']);
             return ApiResponse::success($addresses);
         }catch(\Throwable $th){
             return ApiResponse::internalServerError($th);
