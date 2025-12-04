@@ -64,14 +64,14 @@ class OrderService{
     }
 
 
-    public function createBill($addressId, $items, $method){
+    public function createBill($address, $items, $method){
         try{
             $totalBillPrice = 0;
 
             $products = [];
             
             $bill = Bill::create([
-                'address_id' => $addressId,
+                'address' => $address,
                 'total_price' => $totalBillPrice,
                 'order_code' => intval(substr(strval(microtime(true) * 10000), -6)),
                 'user_id' => Auth::id(),

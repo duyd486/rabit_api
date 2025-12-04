@@ -26,8 +26,8 @@ class BillController extends Controller
             //         "quantity"=>4
             //     ]
             // ];
-            // $res = $orderService->createBill(1, $items, "online");
-            $res = $orderService->createBill($params['address_id'], $params['items'], $params['method']);
+            // $res = $orderService->createBill('HN', $items, "online");
+            $res = $orderService->createBill($params['address'], $params['items'], $params['method']);
             if($res != null){
                 return ApiResponse::success($res);
             } else{

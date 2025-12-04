@@ -12,6 +12,6 @@ class Bill extends Model
         'total_price',
         'order_code',
         'user_id',
-        'address_id',
+        'address',
     ];
 }
