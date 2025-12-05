@@ -30,7 +30,7 @@ class AuthService{
     public function signUp($data)
     {
         $user = User::create([
-            'name' => explode('@', $data['email'])[0],
+            'name' => $data['name'] ?? explode('@', $data['email'])[0],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'birth' => null,
