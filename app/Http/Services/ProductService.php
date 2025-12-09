@@ -69,6 +69,7 @@ class ProductService{
 
     public function getProduct($product){
         $product = $product->select('id', 'name', 'price', 'detail', 'quantity', 'total_sold', 'category_id')
+                            ->where('id', $product->id)
                             ->with('images:product_id,image_url')
                             ->with('category:id,name,thumbnail_url')
                             ->first();
