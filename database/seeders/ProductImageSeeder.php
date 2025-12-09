@@ -68,6 +68,60 @@ class ProductImageSeeder extends Seeder
                 'created_at'=>now(),
                 'updated_at'=>now(),
              ],
+             [
+                'product_id'=>10,
+                'image_url'=>env('APP_URL') . '/thumbnails/Vở kẻ ngang chấm 80 trang B5 giấy Nhật Crabit x Kokuyo Land of Too-Shy 2 - Bananeet Picnic.jpg',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+            [
+                'product_id'=>12,
+                'image_url'=>env('APP_URL') . '/thumbnails/Vở grid caro 80gsm 100 trang The Reverie Diary - Nơ Hồng To.jpg',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+             [
+                'product_id'=>13,
+                'image_url'=>env('APP_URL') . '/thumbnails/Vở kẻ ngang 500 trang tặng kèm sticker Composition Collection - Xanh Teal',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+             [
+                'product_id'=>14,
+                'image_url'=>env('APP_URL') . '/thumbnails/Vở cornel grid 120 trang Composition Collection - Tím',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ], 
+             [
+              'product_id'=>15,
+                'image_url'=>env('APP_URL') . '/thumbnails/Hộp 5 bút gel Kaco Pure - Morandi 2',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ], 
+             [
+              'product_id'=>16,
+                'image_url'=>env('APP_URL') . '/thumbnails/Sticker Dính Vía Siêu to dán Vali',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+             [
+              'product_id'=>17,
+                'image_url'=>env('APP_URL') . '/thumbnails/Masking Tape cuộn vintage',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+             [
+              'product_id'=>20,
+                'image_url'=>env('APP_URL') . '/thumbnails/Combo 2 bút luyện viết chữ Calligraphy chuyên dụng',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
+             [
+              'product_id'=>21,
+                'image_url'=>env('APP_URL') . '/thumbnails/Bộ sách luyện viết Modern Calligraphy & Handwriting',
+                'created_at'=>now(),
+                'updated_at'=>now(),
+             ],
         ]);
     }
 }
