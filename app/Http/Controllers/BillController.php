@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\DB;
 
 class BillController extends Controller
 {
+
+    public function index(OrderService $orderService)
+    {
+        try{
+            $bills = $orderService->listBill();
+            return ApiResponse::success($bills);
+        }catch(\Throwable $th){
+            return ApiResponse::internalServerError($th);
+        }
+    }
+
+
     public function createBill (Request $request, OrderService $orderService) {
         $params = $request->all();
         try{
@@ -37,5 +49,7 @@ class BillController extends Controller
             return ApiResponse::internalServerError($th);
         }
     }
+
+
 
 }

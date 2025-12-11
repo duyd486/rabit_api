@@ -13,4 +13,13 @@ class OrderItem extends Model
         'product_id',
         'bill_id',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class);
+    }
 }

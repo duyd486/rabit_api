@@ -64,6 +64,19 @@ class OrderService{
     }
 
 
+    public function listBill(){
+        try{
+            $bills = [];
+
+            $bills = Bill::where('user_id', Auth::id())->with('orderItems')->get();
+
+            return $bills;
+        } catch(\Throwable $th){
+            return null;
+        }
+    }
+
+
     public function createBill($address, $items, $method){
         try{
             $totalBillPrice = 0;
