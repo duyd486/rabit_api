@@ -11,13 +11,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+COPY . /var/www
 # Copy composer files
 COPY composer.json composer.lock ./
 
-# Composer install
+# composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-COPY . /var/www
+
+# env
+RUN cp .env.example .env
 
 RUN composer dump-autoload --optimize && \
     php artisan package:discover --ansi
@@ -25,4 +28,4 @@ RUN composer dump-autoload --optimize && \
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
-CMD php artisan migrate:fresh --seed --force && php-fpm
+CMD [ ! -f .env ] && cp .env.example .env || true && php artisan migrate:fresh --seed --force && php-fpm

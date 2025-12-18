@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     container_name: rabit_app
+    restart: always
     volumes:
       - .:/var/www
       - /var/www/vendor
