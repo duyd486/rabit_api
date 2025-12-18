@@ -8,12 +8,14 @@ services:
     container_name: rabit_app
     volumes:
       - .:/var/www
+      - /var/www/vendor
     networks:
       - laravel
 
   web:
     image: nginx:latest
     container_name: rabit_nginx
+    restart: always
     ports:
       - "8000:80"
     volumes:

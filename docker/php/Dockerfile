@@ -11,7 +11,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+# Copy composer files
+COPY composer.json composer.lock ./
+
+# Composer install
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
 COPY . /var/www
+
+RUN composer dump-autoload --optimize && \
+    php artisan package:discover --ansi
 
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
