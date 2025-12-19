@@ -18,10 +18,6 @@ COPY composer.json composer.lock ./
 # composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-
-# env
-RUN cp .env.example .env
-
 RUN composer dump-autoload --optimize && \
     php artisan package:discover --ansi
 
